@@ -1,3 +1,7 @@
 body{
     text-align: center;
 }
+
+.demo-container{
+    border:1px solid black;
+}
