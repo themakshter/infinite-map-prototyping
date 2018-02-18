@@ -6,6 +6,9 @@ var xMark = s.image('x-mark.png', 20, 100, 25, 25);
 
 var streamLine = createStream(20, 150);
 
+var pathLine = s.path("m 60, 225 c 0,0 50,-20 45,-35 -5,-15 -20,-10 -30, 0 -10,20 5,40 20,40 35,5 85,-75 85,-75")
+.attr({stroke:"orange", fill:"transparent", strokeDasharray:10, strokeWidth:3});
+
 function createStream(x, y){
     for(var i = 0; i < 3; i++){
         var streamLine = createStreamWave(x, y);
