@@ -1,13 +1,28 @@
 var s = Snap('#map-svg');
 
-var forest = createForest(20,20);
+var width = 750;
+var height = 600;
 
-var xMark = s.image('x-mark.png', 20, 100, 25, 25);
+userX = width/2 - 10;
+userY = height - 30;
 
-var streamLine = createStream(20, 150);
+var forest = createForest(50,30);
 
-var pathLine = s.path("m 60, 225 c 0,0 50,-20 45,-35 -5,-15 -20,-10 -30, 0 -10,20 5,40 20,40 35,5 85,-75 85,-75")
-.attr({stroke:"orange", fill:"transparent", strokeDasharray:10, strokeWidth:3});
+var user = createUser(userX, userY);
+
+var streamLine = createStream(200, 200);
+
+var pathToForest = createPath(userX, userY, 80, 75);
+
+function createPath(startX, startY, finishX, finishY){
+    var pathBetween = "M " + startX + "," + startY + " " + finishX + "," + finishY;
+    return s.path(pathBetween)
+            .attr({stroke:"orange", fill:"transparent", strokeDasharray:10, strokeWidth:5});
+}
+
+function createUser(x, y){
+    return s.image('x-mark.png', x, y, 25, 25);
+}
 
 function createStream(x, y){
     for(var i = 0; i < 3; i++){
@@ -23,11 +38,11 @@ function createStreamWave(x, y){
         pathString += createStreamCurve(x, y, length);
         x += length;
     }
-    return s.path(pathString).attr({ stroke: "blue", fill: "transparent"});;
+    return s.path(pathString).attr({ stroke: "blue", fill: "transparent", strokeWidth:5});;
 }
 
 function createStreamCurve(x, y, length){
-    var height = 20;
+    var height = 10;
     return " Q " + (x + length/2) + " " + (y - height) + " " + (x + length) + " " + y;
 }
 
