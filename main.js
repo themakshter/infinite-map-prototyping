@@ -14,6 +14,17 @@ var streamLine = createStream(200, 200);
 
 var pathToForest = createPath(userX, userY, 80, 75);
 
+var castle = s.image('castle.svg',400, 150, 50, 50)
+                .hover(function hoverIn(){
+                    this.transform("s 1.25");
+                },
+                function hoverOut(){
+                    this.transform("s 1");
+                })
+                .click(function clickFunction(){
+                    this.animate({ transform: "r 90"}, 1000);
+                });
+
 function createPath(startX, startY, finishX, finishY){
     var pathBetween = "M " + startX + "," + startY + " " + finishX + "," + finishY;
     return s.path(pathBetween)
