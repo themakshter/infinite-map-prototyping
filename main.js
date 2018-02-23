@@ -1,10 +1,38 @@
 var s = Snap('#map-svg');
 
-var width = 750;
-var height = 600;
+var panelWidth = 750;
+var panelHeight = 600;
 
-userX = width/2 - 10;
-userY = height - 30;
+userX = panelWidth/2 - 10;
+userY = panelHeight - 30;
+
+class ActivityComponent{
+    constructor(name, imageSource, x, y){
+        this.name = name;
+        this.imageSource = imageSource;
+        this.x = x;
+        this.y = y;
+        this.width = 50;
+        this.height = 50;
+    }
+
+    drawComponent(){
+        var componentImage = s.image(this.imageSource, this.x, this.y, this.width, this.height);
+        var componentText = s.text(this.x - this.width/2, this.y + this.height + 15, this.name);
+        var combined = s.group(componentImage, componentText);
+        combined.hover(function hoverIn(){
+            this.transform("s 1.25");
+        },
+        function hoverOut(){
+            this.transform("s 1");
+        })
+        .click(function clickFunction(){
+            this.animate({ transform: "r 90"}, 1000);
+        });
+        
+    }
+}
+
 
 var forest = createForest(50,30);
 
@@ -14,16 +42,8 @@ var streamLine = createStream(200, 200);
 
 var pathToForest = createPath(userX, userY, 80, 75);
 
-var castle = s.image('castle.svg',400, 150, 50, 50)
-                .hover(function hoverIn(){
-                    this.transform("s 1.25");
-                },
-                function hoverOut(){
-                    this.transform("s 1");
-                })
-                .click(function clickFunction(){
-                    this.animate({ transform: "r 90"}, 1000);
-                });
+var castle =  new ActivityComponent("Dream Castle", 'castle.svg', 400, 150);
+castle.drawComponent();
 
 function createPath(startX, startY, finishX, finishY){
     var pathBetween = "M " + startX + "," + startY + " " + finishX + "," + finishY;
@@ -79,3 +99,4 @@ function createTriangleTree(x, y){
         x + 10, y]
     return s.polygon(points).attr({fill: "green"});
 }
+
