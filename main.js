@@ -28,26 +28,26 @@ var exampleMapToLoad = {
         {
             name: 'Freaky Forest',
             image: 'forest.png',
-            x: 10,
-            y: 10
+            x: 175,
+            y: 300
         },
         {
             name: 'Mourny Mountain',
-            image: 'mountain.jpg',
-            x: 50,
-            y: 50
+            image: 'mountain.png',
+            x: 500,
+            y: 450
         },
         {
             name: 'Raging River',
             image: 'river.png',
-            x: 250,
-            y: 25
+            x: 300,
+            y: 100
         },
         {
             name: 'Creepy Castle',
             image: 'castle.svg',
             x: 500,
-            y: 700
+            y: 250
         },
         {
             name: 'X Marks the Spot',
@@ -57,37 +57,6 @@ var exampleMapToLoad = {
         }
     ]
 }
-
-class Map{
-    constructor(map){
-        this.name = map.name;
-        this.background = map.background;
-        this.overlay = map.overlay;
-        this.activities = map.activities;
-    }
-
-    draw(){
-        this.drawBackground();
-        this.drawOverlay();
-    }
-
-    drawBackground(){
-        var pattern = s.image(this.background, 0,0, 250,250).pattern(0,0,50,50);
-        var background = s.rect(0, 0, panelWidth, panelHeight).attr("fill", pattern);
-    }
-
-    drawOverlay(){
-        var overlay = s.image(this.overlay, panelWidth * 0.05, panelHeight * 0.05, panelWidth * 0.9, panelHeight * 0.9);
-    }
-
-
-}
-
-var createdMap = new Map(exampleMapToLoad);
-createdMap.draw();
-
-
-
 
 class ActivityComponent{
     constructor(name, imageSource, x, y){
@@ -99,7 +68,7 @@ class ActivityComponent{
         this.height = 50;
     }
 
-    drawComponent(){
+    draw(){
         var componentImage = s.image(this.imageSource, this.x, this.y, this.width, this.height);
         var componentText = s.text(this.x - this.width/2, this.y + this.height + 15, this.name);
         var combined = s.group(componentImage, componentText);
@@ -115,6 +84,47 @@ class ActivityComponent{
         
     }
 }
+
+class Map{
+    constructor(map){
+        this.name = map.name;
+        this.background = map.background;
+        this.overlay = map.overlay;
+        this.activities = map.activities;
+    }
+
+    draw(){
+        this.drawBackground();
+        this.drawOverlay();
+        this.drawComponents();
+    }
+
+    drawBackground(){
+        var pattern = s.image(this.background, 0,0, 250,250).pattern(0,0,50,50);
+        var background = s.rect(0, 0, panelWidth, panelHeight).attr("fill", pattern);
+    }
+
+    drawOverlay(){
+        var overlay = s.image(this.overlay, panelWidth * 0.05, panelHeight * 0.05, panelWidth * 0.9, panelHeight * 0.9);
+    }
+
+    drawComponents(){
+        for (var activity of this.activities){
+            var activityComponent = new ActivityComponent(activity.name, activity.image, activity.x, activity.y);
+            activityComponent.draw();
+        }
+    }
+
+
+}
+
+var createdMap = new Map(exampleMapToLoad);
+createdMap.draw();
+
+
+
+
+
 
 function doSomePrototyping(){
     var forest = createForest(50,30);
