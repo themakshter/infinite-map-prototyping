@@ -29,7 +29,7 @@ var exampleMapToLoad = {
             name: 'Freaky Forest',
             image: 'forest.png',
             x: 175,
-            y: 300
+            y: 200
         },
         {
             name: 'Mourny Mountain',
@@ -95,6 +95,7 @@ class Map{
 
     draw(){
         this.drawBackground();
+        this.drawTitle();
         this.drawOverlay();
         this.drawComponents();
     }
@@ -104,8 +105,12 @@ class Map{
         var background = s.rect(0, 0, panelWidth, panelHeight).attr("fill", pattern);
     }
 
+    drawTitle(){
+        var mapTitle = s.text(panelWidth * 0.40, panelHeight * 0.075, this.name).attr("font-size", 50 );
+    }
+
     drawOverlay(){
-        var overlay = s.image(this.overlay, panelWidth * 0.05, panelHeight * 0.05, panelWidth * 0.9, panelHeight * 0.9);
+        var overlay = s.image(this.overlay, panelWidth * 0.05, panelHeight * 0.075, panelWidth * 0.9, panelHeight * 0.9);
     }
 
     drawComponents(){
