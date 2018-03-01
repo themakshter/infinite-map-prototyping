@@ -67,12 +67,17 @@ class Map{
     }
 
     draw(){
-        this.drawBackground()
+        this.drawBackground();
+        this.drawOverlay();
     }
 
     drawBackground(){
         var pattern = s.image(this.background, 0,0, 250,250).pattern(0,0,50,50);
         var background = s.rect(0, 0, panelWidth, panelHeight).attr("fill", pattern);
+    }
+
+    drawOverlay(){
+        var overlay = s.image(this.overlay, panelWidth * 0.05, panelHeight * 0.05, panelWidth * 0.9, panelHeight * 0.9);
     }
 
 
