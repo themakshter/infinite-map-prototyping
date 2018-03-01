@@ -6,8 +6,6 @@ var panelHeight = 600;
 userX = panelWidth/2 - 10;
 userY = panelHeight - 30;
 
-
-
 var mapToLoadSchema = {
     name: 'string',
     background: 'svg',
@@ -24,7 +22,7 @@ var mapToLoadSchema = {
 
 var exampleMapToLoad = {
     name: 'Fun Island',
-    background: 'water-background.jpg',
+    background: 'water.jpg',
     overlay: 'island.png',
     activities:[
         {
@@ -55,10 +53,36 @@ var exampleMapToLoad = {
             name: 'X Marks the Spot',
             image: 'x-mark.png',
             x: 350,
-            y: 350
+            y: 300
         }
     ]
 }
+
+class Map{
+    constructor(map){
+        this.name = map.name;
+        this.background = map.background;
+        this.overlay = map.overlay;
+        this.activities = map.activities;
+    }
+
+    draw(){
+        this.drawBackground()
+    }
+
+    drawBackground(){
+        var pattern = s.image(this.background, 0,0, 250,250).pattern(0,0,50,50);
+        var background = s.rect(0, 0, panelWidth, panelHeight).attr("fill", pattern);
+    }
+
+
+}
+
+var createdMap = new Map(exampleMapToLoad);
+createdMap.draw();
+
+
+
 
 class ActivityComponent{
     constructor(name, imageSource, x, y){
