@@ -96,13 +96,15 @@ class ActivityComponent{
 }
 
 class Map{
-    constructor(map, width, height){
+    constructor(map, width, height, x, y){
         this.name = map.name;
         this.background = map.background;
         this.overlay = map.overlay;
         this.activities = map.activities;
         this.width = width;
         this.height = height;
+        this.x = x;
+        this.y = y;
     }
 
     draw(){
@@ -114,20 +116,26 @@ class Map{
 
     drawBackground(){
         var pattern = s.image(this.background, 0,0, 250,250).pattern(0,0,50,50);
-        var background = s.rect(0, 0, this.width, this.height).attr("fill", pattern);
+        var background = s.rect(this.x, this.y, this.width, this.height).attr("fill", pattern);
     }
 
     drawTitle(){
-        var mapTitle = s.text(this.width * 0.40, this.height * 0.075, this.name).attr("font-size", 50 );
+        var titleX = this.x + (this.width * 0.40);
+        var titleY = this.y + (this.height * 0.075);
+        var titleSize = this.height * 0.075;
+        var mapTitle = s.text(titleX, titleY, this.name).attr("font-size", titleSize );
     }
 
     drawOverlay(){
-        var overlay = s.image(this.overlay, this.width * 0.05, this.height * 0.075, this.width * 0.9, this.height * 0.9);
+        var overlayX = this.x + (this.width * 0.05);
+        var overlayY = this.y + (this.height * 0.075);
+        var overlay = s.image(this.overlay, overlayX ,overlayY , this.width * 0.9, this.height * 0.9);
     }
 
     drawComponents(){
+        var activitySize = this.width * 0.075;
         for (var activity of this.activities){
-            var activityComponent = new ActivityComponent(activity.name, activity.image, activity.x, activity.y, this.width * 0.075, activity.onClickFunction);
+            var activityComponent = new ActivityComponent(activity.name, activity.image, activity.x, activity.y, activitySize , activity.onClickFunction);
             activityComponent.draw();
         }
     }
@@ -136,7 +144,7 @@ class Map{
 }
 
 addCallbackFuntionToComponents(exampleMapToLoad);
-var createdMap = new Map(exampleMapToLoad, panelWidth, panelHeight);
+var createdMap = new Map(exampleMapToLoad, panelWidth ,panelHeight, 0 , 0);
 createdMap.draw();
 
 
