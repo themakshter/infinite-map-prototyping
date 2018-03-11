@@ -96,11 +96,13 @@ class ActivityComponent{
 }
 
 class Map{
-    constructor(map){
+    constructor(map, width, height){
         this.name = map.name;
         this.background = map.background;
         this.overlay = map.overlay;
         this.activities = map.activities;
+        this.width = width;
+        this.height = height;
     }
 
     draw(){
@@ -112,15 +114,15 @@ class Map{
 
     drawBackground(){
         var pattern = s.image(this.background, 0,0, 250,250).pattern(0,0,50,50);
-        var background = s.rect(0, 0, panelWidth, panelHeight).attr("fill", pattern);
+        var background = s.rect(0, 0, this.width, this.height).attr("fill", pattern);
     }
 
     drawTitle(){
-        var mapTitle = s.text(panelWidth * 0.40, panelHeight * 0.075, this.name).attr("font-size", 50 );
+        var mapTitle = s.text(this.width * 0.40, this.height * 0.075, this.name).attr("font-size", 50 );
     }
 
     drawOverlay(){
-        var overlay = s.image(this.overlay, panelWidth * 0.05, panelHeight * 0.075, panelWidth * 0.9, panelHeight * 0.9);
+        var overlay = s.image(this.overlay, this.width * 0.05, this.height * 0.075, this.width * 0.9, this.height * 0.9);
     }
 
     drawComponents(){
@@ -134,7 +136,7 @@ class Map{
 }
 
 addCallbackFuntionToComponents(exampleMapToLoad);
-var createdMap = new Map(exampleMapToLoad);
+var createdMap = new Map(exampleMapToLoad, panelWidth, panelHeight);
 createdMap.draw();
 
 
