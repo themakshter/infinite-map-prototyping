@@ -67,13 +67,13 @@ function addCallbackFuntionToComponents(map){
 }
 
 class ActivityComponent{
-    constructor(name, imageSource, x, y, onClickFunction){
+    constructor(name, imageSource, x, y, size, onClickFunction){
         this.name = name;
         this.imageSource = imageSource;
         this.x = x;
         this.y = y;
-        this.width = 50;
-        this.height = 50;
+        this.width = size;
+        this.height = size;
         this.onClickFunction = onClickFunction;
     }
 
@@ -127,7 +127,7 @@ class Map{
 
     drawComponents(){
         for (var activity of this.activities){
-            var activityComponent = new ActivityComponent(activity.name, activity.image, activity.x, activity.y, activity.onClickFunction);
+            var activityComponent = new ActivityComponent(activity.name, activity.image, activity.x, activity.y, this.width * 0.075, activity.onClickFunction);
             activityComponent.draw();
         }
     }
